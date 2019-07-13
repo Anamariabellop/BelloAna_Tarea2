@@ -50,7 +50,7 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 	ofstream outfile;
 	outfile.open(filename);
 
-
+	//Arreglos.
 	double t[npuntos];
 	t[0]=0.0;
 
@@ -66,21 +66,19 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 	double vy[npuntos];
 	vy[0]=vyini;
 
-	double dt= (b-a)/(npuntos-1);
+	double dt= (b-a)/(npuntos-1); //dt para el linspace.
 
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
 	}
 
-	for(int i=1; i<npuntos; i++){
+	for(int i=1; i<npuntos; i++){ //Calculo de x, y, vx y vy.
 		x[i]= x[i-1] +  (delta*dxdt(t[i-1],x[i-1],vx[i-1]));
 		y[i]= y[i-1] +  (delta*dydt(t[i-1],y[i-1],vy[i-1]));
 		vx[i]= vx[i-1] + (delta*dvxdt(t[i-1],x[i-1],vx[i-1]));
 		vy[i]= vy[i-1] + (delta*dvydt(t[i-1],y[i-1],vy[i-1]));
-
-		//outfile << t[i-1] <<"  " << x[i-1] << "   " << y[i-1]<< "   " << vx[i-1] << "   " << vy[i-1] << endl;
-	}
+		}
 
 	for(int i=0; i<npuntos; i++){
 		outfile << t[i] <<"  " << x[i] << "   " << y[i]<< "   " << vx[i] << "   " << vy[i] << endl;
