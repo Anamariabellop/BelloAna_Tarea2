@@ -70,7 +70,6 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 
 	double dt= (b-a)/(npuntos-1); //dt para el linspace.
 
-
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
 	}
@@ -110,7 +109,6 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 	vy[0]=vyini;
 
 	double dt= (b-a)/(npuntos-1); //dt para el linspace.
-
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
