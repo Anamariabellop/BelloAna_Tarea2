@@ -161,7 +161,7 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 		t[i]= t[i-1]+dt;
 	}
 
-	for(int i=1; i<npuntos; i++){
+	for(int i=1; i<npuntos; i++){ //Calculo k para calcular de x, y, vx y vy.
 
 		k1x= delta*dxdt(t[i-1],x[i-1],vx[i-1]);
 		k1y= delta*dydt(t[i-1],y[i-1],vy[i-1]);
