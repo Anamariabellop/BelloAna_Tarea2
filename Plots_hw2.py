@@ -153,6 +153,144 @@ plt.title("RK4: VY vs Y")
 plt.subplots_adjust(hspace=0.5)
 plt.savefig("Velocidades.png")
 
+#momentun angular
+
+"""plt.figure(figsize=(16,12))
+plt.subplot(3,3,1)
+plt.plot(euler[:,0],euler[:,5], color= 'g')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("Euler: X vs Y")
+
+plt.subplot(3,3,2)
+plt.plot(leapfrog[:,0],leapfrog[:,5], color= 'c')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("leapfrog: X vs Y")
+
+plt.subplot(3,3,3)
+plt.plot(rungek4[:,0],rungek4[:,5], color= 'm')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("RK4: X vs Y")
+
+plt.subplot(3,3,4)
+plt.plot(euler[:,0],euler[:,5], color= 'g')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("Euler: X vs Y")
+
+plt.subplot(3,3,5)
+plt.plot(leapfrog[:,0],leapfrog[:,5], color= 'c')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("leapfrog: X vs Y")
+
+plt.subplot(3,3,6)
+plt.plot(rungek4[:,0],rungek4[:,5], color= 'm')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("RK4: X vs Y")
+
+plt.subplot(3,3,7)
+plt.plot(euler[:,0],euler[:,5], color= 'g')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("Euler: X vs Y")
+
+plt.subplot(3,3,8)
+plt.plot(leapfrog[:,0],leapfrog[:,5], color= 'c')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("leapfrog: X vs Y")
+
+plt.subplot(3,3,9)
+plt.plot(rungek4[:,0],rungek4[:,5], color= 'm')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("RK4: VY vs Y")
+
+plt.subplots_adjust(hspace=0.5)
+plt.savefig("Momentums.png")
+
+# energia del sistema 
+
+plt.figure(figsize=(16,12))
+plt.subplot(3,3,1)
+plt.plot(euler[:,0],euler[:,6], color= 'g')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("Euler: X vs Y")
+
+plt.subplot(3,3,2)
+plt.plot(leapfrog[:,0],leapfrog[:,6], color= 'c')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("leapfrog: X vs Y")
+
+plt.subplot(3,3,3)
+plt.plot(rungek4[:,0],rungek4[:,6], color= 'm')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("RK4: X vs Y")
+
+plt.subplot(3,3,4)
+plt.plot(euler[:,0],euler[:,6], color= 'g')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("Euler: X vs Y")
+
+plt.subplot(3,3,5)
+plt.plot(leapfrog[:,0],leapfrog[:,6], color= 'c')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("leapfrog: X vs Y")
+
+plt.subplot(3,3,6)
+plt.plot(rungek4[:,0],rungek4[:,6], color= 'm')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("RK4: X vs Y")
+
+plt.subplot(3,3,7)
+plt.plot(euler[:,0],euler[:,6], color= 'g')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("Euler: X vs Y")
+
+plt.subplot(3,3,8)
+plt.plot(leapfrog[:,0],leapfrog[:,6], color= 'c')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("leapfrog: X vs Y")
+
+plt.subplot(3,3,9)
+plt.plot(rungek4[:,0],rungek4[:,6], color= 'm')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.title("RK4: VY vs Y")
+
+plt.subplots_adjust(hspace=0.5)
+plt.savefig("Energias.png")"""
+
 
 
 
