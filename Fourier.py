@@ -116,6 +116,32 @@ plt.figure()
 plt.imshow(np.abs(Transformadaf3), norm= LogNorm())
 plt.savefig("prueba2")
 
+#Calculamos inversa para obtener la imagen.
+
+inversafeliz= np.fft.irfft2(Transformadaf2)
+inversatriste=np.fft.irfft2(Transformadaf3)
+
+
+
+plt.figure(figsize=(10,10))
+plt.subplot(2,1,1)
+plt.imshow(inversafeliz)
+plt.xlabel("freq(Hz)")
+plt.ylabel("Tfd")
+plt.title("Inversa Transformada 2D Cara feliz")
+
+plt.subplot(2,1,2)
+plt.imshow(inversatriste)
+plt.xlabel("freq(Hz)")
+plt.ylabel("Tfd")
+
+plt.title("Inversa Transformada 2D Cara Triste")
+plt.subplots_adjust(hspace=0.5)
+plt.savefig("Tinv.png")
+
+plt.figure()
+plt.imshow(inversatriste+inversafeliz)
+plt.savefig("hibrida.png")
 
 #Filtro gaussiano para realizar hibrido.
 
