@@ -3,6 +3,9 @@ import matplotlib.pylab as plt
 from scipy import fftpack
 from scipy.fftpack import fft, fftfreq,fft2
 from matplotlib.colors import LogNorm
+#from PIL import Image, ImageFilter
+#import cv2
+from scipy import ndimage,misc
 
 
 #Almacene los datos de las imagenes cara_02_grisesMF.png y de cara_03_grisesMF.png.
@@ -19,8 +22,15 @@ triste= plt.imread("cara_02_grisesMF.png")
 Transformadaf= fft2(feliz)
 Transformadat= fft2(triste)
 
+#print(Transformadaf)
+print("   ")
+#print(Transformadat)
+
 freqfeliz= np.fft.fftshift(feliz)
 freqtriste= np.fft.fftshift(triste)
+#print(np.shape(freqfeliz))
+#Shape es de 254, 170.
+#print(freqfeliz)
 
 plt.figure(figsize=(10,10))
 plt.subplot(2,1,1)
@@ -57,6 +67,41 @@ plt.title("Transformada 2D Cara Triste")
 plt.subplots_adjust(hspace=0.5)
 plt.grid()
 plt.savefig("Transformadas2.png")
+
+#Filtros de imagen.
+
+m=np.shape(freqfeliz)[0]
+n=np.shape(freqfeliz)[1]
+#print(m,n)
+
+#Maximo y minimo de imagen feliz.
+maximo=np.max(freqfeliz)
+minimo=np.min(freqfeliz)
+promedio=np.mean(freqfeliz)
+#Maximo y minimo de imagen triste.
+
+# print(np.max(freqtriste))
+#print(np.min(freqtriste))
+
+for i in range(m):
+	for j in range(n):
+
+		if(freqfeliz[i][j]<promedio):
+			Transformadaf[i][j]=0
+		else:
+			Transformadaf[i][j]=Transformadaf[i][j]
+
+
+
+#Filtro gaussiano para realizar hibrido.
+
+#f(x)= ae^-((x-b)^2/2c^2) Modelo.
+
+#gauss= np.exp(-(x**2)/(sigma**2))
+
+#kernel= cv2.getGaussianKernel(np.shape(feliz)[0],sigma=1)
+
+
 
 
 #Haga una imagen hibrida tal que cuando se observe de cerca, se vea a la persona seria y cuando se observe de lejos se vea a la persona sonriendo.
