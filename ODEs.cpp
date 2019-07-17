@@ -22,6 +22,7 @@ int main()
 	double M=1.0;
 
 	// primer dt
+
 	euler(0,20,x0,y0,vx0,vy0,0.01,10000,"euler.txt");
 	leapfrog(0,20,x0,y0,vx0,vy0,0.01,10000,"leapfrog.txt");
 	rungek4(0,20,x0,y0,vx0,vy0,0.01,10000,"rungek4.txt");
@@ -70,6 +71,8 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 	outfile.open(filename);
 
 	double M=1.0;
+	double mtierra=3.00273*pow(10,-6);
+	double G=39.277;
 
 	//Arreglos.
 	double t[npuntos];
@@ -95,6 +98,15 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 
 	double momentum[npuntos];
 	momentum[0]= (r12x[0]*M*vy[0])-(r12y[0]*M*vx[0]);
+
+	/*double ecinetica[npuntos];
+	ecinetica[0]= 0.5*((mtierra*pow(vx[0],2))+(mtierra*pow(vy[0],2)));
+
+	double epotencial[npuntos];
+	epotencial[0]= -G*(mtierra*M)/(r12x[0]);
+
+	double esistema[npuntos];
+	esistema[0]=ecinetica[0]-epotencial[0];*/
 
 	double dt= (b-a)/(npuntos-1); //dt para el linspace.
 
@@ -112,11 +124,14 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 		vy[i]= vy[i-1] + (delta*dvydt(r12y[i-1],t[i-1],y[i-1],vy[i-1]));
 
 		momentum[i]=(r12x[i]*M*vy[i])-(r12y[i]*M*vx[i]);
+		/*ecinetica[i]=0.5*((mtierra*pow(vx[i],2))+(mtierra*pow(vy[i],2)));
+		epotencial[i]= -G*(mtierra*M)/(r12x[i]);
+		esistema[i]= ecinetica[i]-epotencial[i];*/ 
 
 		}
 
 	for(int i=0; i<npuntos; i++){
-		outfile << t[i] <<"  " << x[i] << "   " << y[i]<< "   " << vx[i] << "   " << vy[i] << "  " <<momentum[i]<<endl;
+		outfile << t[i] <<"  " << x[i] << "   " << y[i]<< "   " << vx[i] << "   " << vy[i] << "  " <<momentum[i] << /*"  "<< ecinetica[i] << "  "<< epotencial[i] << "  "<< esistema[i]<<*/endl;
 	}
 	outfile.close();
 }
@@ -127,6 +142,8 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 	outfile.open(filename);
 
 	double M=1.0;
+	double mtierra=3.00273*pow(10,-6);
+	double G=39.277;
 
 	//Arreglos.
 	double t[npuntos];
@@ -155,6 +172,15 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 	double momentum[npuntos];
 	momentum[0]= (r12x[0]*M*vy[0])-(r12y[0]*M*vx[0]);
 
+	/*double ecinetica[npuntos];
+	ecinetica[0]= 0.5*((mtierra*pow(vx[0],2))+(mtierra*pow(vy[0],2)));
+
+	double epotencial[npuntos];
+	epotencial[0]= -G*(mtierra*M)/(r12x[0]);
+
+	double esistema[npuntos];
+	esistema[0]=ecinetica[0]-epotencial[0];*/
+
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
 	}
@@ -169,6 +195,9 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 		vy[i]= vy[i-1] + (delta*dvydt(r12y[i-1],t[i-1],y[i-1],vy[i-1]));
 
 		momentum[i]=(r12x[i]*M*vy[i])-(r12y[i]*M*vx[i]);
+		/*ecinetica[i]=0.5*((mtierra*pow(vx[i],2))+(mtierra*pow(vy[i],2)));
+		epotencial[i]= -G*(mtierra*M)/(r12x[i]);
+		esistema[i]= ecinetica[i]-epotencial[i]; */
 
 		}
 
@@ -184,6 +213,8 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 	outfile.open(filename);
 
 	double M=1.0;
+	double mtierra=3.00273*pow(10,-6);
+	double G=39.277;
 
 	//Arreglos.
 	double t[npuntos];
@@ -216,6 +247,15 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 
 	double momentum[npuntos];
 	momentum[0]= (r12x[0]*M*vy[0])-(r12y[0]*M*vx[0]);
+
+	/*double ecinetica[npuntos];
+	ecinetica[0]= 0.5*((mtierra*pow(vx[0],2))+(mtierra*pow(vy[0],2)));
+
+	double epotencial[npuntos];
+	epotencial[0]= -G*(mtierra*M)/(r12x[0]);
+
+	double esistema[npuntos];
+	esistema[0]=ecinetica[0]-epotencial[0];*/
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
@@ -257,6 +297,10 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 		vy[i]= vy[i-1]+promediovy;
 
 		momentum[i]=(r12x[i]*M*vy[i])-(r12y[i]*M*vx[i]);
+
+		/*ecinetica[i]=0.5*((mtierra*pow(vx[i],2))+(mtierra*pow(vy[i],2)));
+		epotencial[i]= -G*(mtierra*M)/(r12x[i]);
+		esistema[i]= ecinetica[i]-epotencial[i]; */
 	}
 
 	for(int i=0; i<npuntos; i++){
