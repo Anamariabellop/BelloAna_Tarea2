@@ -20,9 +20,24 @@ int main()
 	double vx0= -6.35; //UA/yr
 	double vy0= 0.606; //UA/yr
 	double M=1.0;
+
+	// primer dt
 	euler(0,20,x0,y0,vx0,vy0,0.01,10000,"euler.txt");
 	leapfrog(0,20,x0,y0,vx0,vy0,0.01,10000,"leapfrog.txt");
 	rungek4(0,20,x0,y0,vx0,vy0,0.01,10000,"rungek4.txt");
+
+	//segundo dt
+
+	euler(0,20,x0,y0,vx0,vy0,0.001,10000,"eulerdt2.txt");
+	leapfrog(0,20,x0,y0,vx0,vy0,0.001,10000,"leapfrogdt2.txt");
+	rungek4(0,20,x0,y0,vx0,vy0,0.001,10000,"rungek4dt2.txt");
+
+	// tercer dt
+
+	euler(0,20,x0,y0,vx0,vy0,0.0001,100000,"eulerdt3.txt");
+	leapfrog(0,20,x0,y0,vx0,vy0,0.0001,100000,"leapfrogdt3.txt");
+	rungek4(0,20,x0,y0,vx0,vy0,0.0001,100000,"rungek4dt3.txt");
+
 
 	return 0;
 }
