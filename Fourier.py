@@ -68,6 +68,18 @@ plt.subplots_adjust(hspace=0.5)
 plt.grid()
 plt.savefig("Transformadas2.png")
 
+
+plt.figure(figsize=(10,8))
+plt.subplot(1,2,1)
+plt.imshow(feliz, plt.cm.gray)
+plt.title("Cara feliz")
+
+plt.subplot(1,2,2)
+plt.imshow(triste,plt.cm.gray)
+plt.title("Cara Seria")
+plt.subplots_adjust(hspace=0.5)
+plt.savefig("Imagenes.png")
+
 #Filtros de imagen.
 
 m=np.shape(freqfeliz)[0]
@@ -125,13 +137,13 @@ inversatriste=np.fft.irfft2(Transformadaf3)
 
 plt.figure(figsize=(10,10))
 plt.subplot(2,1,1)
-plt.imshow(inversafeliz)
+plt.imshow(np.abs(inversafeliz),plt.cm.gray)
 plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
 plt.title("Inversa Transformada 2D Cara feliz")
 
 plt.subplot(2,1,2)
-plt.imshow(inversatriste)
+plt.imshow(np.abs(inversatriste),plt.cm.gray)
 plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
 
@@ -139,10 +151,27 @@ plt.title("Inversa Transformada 2D Cara Triste")
 plt.subplots_adjust(hspace=0.5)
 plt.savefig("Tinv.png")
 
-plt.figure(figsize=(5,5))
+plt.figure(figsize=(10,8))
 plt.imshow(np.abs(inversatriste+inversafeliz),plt.cm.gray)
-#plt.colorbar()
+plt.colorbar()
 plt.savefig("hibrida.png")
+
+suma=np.abs(inversatriste+inversafeliz)
+freqsuma=np.fft.fftshift(suma)
+ruidosa=np.copy(suma)
+
+for i in range(m):
+	for j in range(n):
+
+		if(freqsuma[i][j]<(np.mean(suma))):
+			ruidosa[i][j]=0
+		else:
+			ruidosa[i][j]=ruidosa[i][j]
+
+plt.figure(figsize=(10,8))
+plt.imshow(ruidosa,plt.cm.gray)
+plt.colorbar()
+plt.savefig("hibridasinruido.png")
 
 #Filtro gaussiano para realizar hibrido.
 
