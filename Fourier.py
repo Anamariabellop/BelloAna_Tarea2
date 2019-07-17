@@ -139,8 +139,9 @@ plt.title("Inversa Transformada 2D Cara Triste")
 plt.subplots_adjust(hspace=0.5)
 plt.savefig("Tinv.png")
 
-plt.figure()
-plt.imshow(inversatriste+inversafeliz)
+plt.figure(figsize=(5,5))
+plt.imshow(np.abs(inversatriste+inversafeliz),plt.cm.gray)
+#plt.colorbar()
 plt.savefig("hibrida.png")
 
 #Filtro gaussiano para realizar hibrido.
