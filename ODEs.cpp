@@ -3,8 +3,8 @@
 #include<math.h>
 
 using namespace std;
-double dvxdt(double tiempo, double x0, double vx0);
-double dvydt(double tiempo, double y0, double vy0);
+double dvxdt(double R,double tiempo, double x0, double vx0);
+double dvydt(double R,double tiempo, double y0, double vy0);
 double dydt(double tiempo, double x0, double vx0);
 double dxdt(double tiempo, double y0, double vy0);
 void euler(double a, double b,double xinicial, double yinicial, double vxini, double vyini, double delta, int npuntos, string filename);
@@ -19,26 +19,26 @@ int main()
 	double y0=0.9772;  //UA
 	double vx0= -6.35; //UA/yr
 	double vy0= 0.606; //UA/yr
-	double M=1.98*pow(10,30);
-	euler(1,100,x0,y0,vx0,vy0,0.1,100,"euler.txt");
-	leapfrog(1,100,x0,y0,vx0,vy0,0.1,100,"leapfrog.txt");
-	rungek4(1,100,x0,y0,vx0,vy0,0.1,100,"rungek4.txt");
+	double M=1.0;
+	euler(0,20,x0,y0,vx0,vy0,0.01,10000,"euler.txt");
+	leapfrog(0,20,x0,y0,vx0,vy0,0.01,10000,"leapfrog.txt");
+	rungek4(0,20,x0,y0,vx0,vy0,0.01,10000,"rungek4.txt");
 
 	return 0;
 }
 
-double dvxdt(double tiempo, double x0, double vx0){
-	double r12x= pow(((x0*x0)-0),0.5);
-	double G=6.674*pow(10,-11);
-	double M=1.98*pow(10,30);
-	return -G*(M/(pow(r12x,3)))*(x0-0);
+double dvxdt(double R,double tiempo, double x0, double vx0){
+	//double r12x= pow(((x0*x0)),0.5);
+	double G=39.277;//6.674*pow(10,-11);
+	double M=1.0;
+	return -G*(M/(pow(R,3)))*(x0-0);
 }
 
-double dvydt(double tiempo, double y0, double vy0){
-	double r12y=pow(((y0*y0)-0),0.5);
-	double G=6.674*pow(10,-11);
-	double M=1.98*pow(10,30);
-	return -G*(M/(pow(r12y,3)))*(y0-0);
+double dvydt(double R,double tiempo, double y0, double vy0){
+	//double r12y=pow(((y0*y0)-0),0.5);
+	double G=39.277;//6.674*pow(10,-11);
+	double M=1.0;
+	return -G*(M/(pow(R,3)))*(y0-0);
 }
 
 double dxdt(double tiempo, double x0, double vx0){
@@ -70,6 +70,11 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 	double vy[npuntos];
 	vy[0]=vyini;
 
+	double r12x[npuntos];
+	double r12y[npuntos];
+
+	r12x[0]= pow(((x[0]*x[0])+(y[0]*y[0])),0.5);
+	r12y[0]= pow(((x[0]*x[0])+(y[0]*y[0])),0.5); 
 	double dt= (b-a)/(npuntos-1); //dt para el linspace.
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
@@ -79,8 +84,10 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 	for(int i=1; i<npuntos; i++){ //Calculo de x, y, vx y vy.
 		x[i]= x[i-1] +  (delta*dxdt(t[i-1],x[i-1],vx[i-1]));
 		y[i]= y[i-1] +  (delta*dydt(t[i-1],y[i-1],vy[i-1]));
-		vx[i]= vx[i-1] + (delta*dvxdt(t[i-1],x[i-1],vx[i-1]));
-		vy[i]= vy[i-1] + (delta*dvydt(t[i-1],y[i-1],vy[i-1]));
+		r12x[i]=pow(((x[i]*x[i])+(y[i]*y[i])),0.5); 
+		r12y[i]=pow(((x[i]*x[i])+(y[i]*y[i])),0.5); 
+		vx[i]= vx[i-1] + (delta*dvxdt(r12x[i-1],t[i-1],x[i-1],vx[i-1]));
+		vy[i]= vy[i-1] + (delta*dvydt(r12y[i-1],t[i-1],y[i-1],vy[i-1]));
 		}
 
 	for(int i=0; i<npuntos; i++){
@@ -110,6 +117,12 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 	double vy[npuntos];
 	vy[0]=vyini;
 
+	double r12x[npuntos];
+	double r12y[npuntos];
+
+	r12x[0]= pow(((x[0]*x[0])+(y[0]*y[0])),0.5);
+	r12y[0]= pow(((x[0]*x[0])+(y[0]*y[0])),0.5); 
+
 	double dt= (b-a)/(npuntos-1); //dt para el linspace.
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
@@ -119,8 +132,10 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 	for(int i=1; i<npuntos; i++){ //Calculo de x, y, vx y vy.
 		x[i]= x[i-1] +  (0.5*delta*dxdt(t[i-1],x[i-1],vx[i-1]));
 		y[i]= y[i-1] +  (0.5*delta*dydt(t[i-1],y[i-1],vy[i-1]));
-		vx[i]= vx[i-1] + (delta*dvxdt(t[i-1],x[i-1],vx[i-1]));
-		vy[i]= vy[i-1] + (delta*dvydt(t[i-1],y[i-1],vy[i-1]));
+		r12x[i]=pow(((x[i]*x[i])+(y[i]*y[i])),0.5); 
+		r12y[i]=pow(((x[i]*x[i])+(y[i]*y[i])),0.5); 
+		vx[i]= vx[i-1] + (delta*dvxdt(r12x[i-1],t[i-1],x[i-1],vx[i-1]));
+		vy[i]= vy[i-1] + (delta*dvydt(r12y[i-1],t[i-1],y[i-1],vy[i-1]));
 		}
 
 	for(int i=0; i<npuntos; i++){
@@ -157,6 +172,12 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 	double k1vy, k2vy, k3vy, k4vy;
 	double promediox,promedioy,promediovx,promediovy;
 
+	double r12x[npuntos];
+	double r12y[npuntos];
+
+	r12x[0]= pow(((x[0]*x[0])+(y[0]*y[0])),0.5);
+	r12y[0]= pow(((x[0]*x[0])+(y[0]*y[0])),0.5); 
+
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
 	}
@@ -165,23 +186,23 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 
 		k1x= delta*dxdt(t[i-1],x[i-1],vx[i-1]);
 		k1y= delta*dydt(t[i-1],y[i-1],vy[i-1]);
-		k1vx= delta*dvxdt(t[i-1],x[i-1],vx[i-1]);
-		k1vy= delta*dvydt(t[i-1],y[i-1],vy[i-1]);
+		k1vx= delta*dvxdt(r12x[i-1],t[i-1],x[i-1],vx[i-1]);
+		k1vy= delta*dvydt(r12y[i-1],t[i-1],y[i-1],vy[i-1]);
 
 		k2x= delta*dxdt(t[i-1]+(0.5*delta), x[i-1]+(0.5*k1x), vx[i-1]+(0.5*k1vx));
 		k2y= delta*dydt(t[i-1]+(0.5*delta), y[i-1]+(0.5*k1y), vy[i-1]+(0.5*k1vy));
-		k2vx= delta*dvxdt(t[i-1]+(0.5*delta), x[i-1]+(0.5*k1x), vx[i-1]+(0.5*k1vx));
-		k2vy= delta*dvydt(t[i-1]+(0.5*delta), y[i-1]+(0.5*k1y), vy[i-1]+(0.5*k1vy));
+		k2vx= delta*dvxdt(r12x[i-1],t[i-1]+(0.5*delta), x[i-1]+(0.5*k1x), vx[i-1]+(0.5*k1vx));
+		k2vy= delta*dvydt(r12y[i-1],t[i-1]+(0.5*delta), y[i-1]+(0.5*k1y), vy[i-1]+(0.5*k1vy));
 
 		k3x= delta*dxdt(t[i-1]+(0.5*delta), x[i-1]+(0.5*k2x), vx[i-1]+(0.5*k2vx));
 		k3y= delta*dydt(t[i-1]+(0.5*delta), y[i-1]+(0.5*k2y), vy[i-1]+(0.5*k2vy));
-		k3vx= delta*dvxdt(t[i-1]+(0.5*delta), x[i-1]+(0.5*k2x), vx[i-1]+(0.5*k1vx));
-		k3vy= delta*dvydt(t[i-1]+(0.5*delta), y[i-1]+(0.5*k2y), vy[i-1]+(0.5*k2vy));
+		k3vx= delta*dvxdt(r12x[i-1],t[i-1]+(0.5*delta), x[i-1]+(0.5*k2x), vx[i-1]+(0.5*k2vx));
+		k3vy= delta*dvydt(r12y[i-1],t[i-1]+(0.5*delta), y[i-1]+(0.5*k2y), vy[i-1]+(0.5*k2vy));
 
 		k4x= delta*dxdt(t[i-1]+delta,x[i-1]+k3x,vx[i-1]+k3vx);
 		k4y= delta*dydt(t[i-1]+delta,y[i-1]+k3y,vy[i-1]+k3vy);
-		k4vx= delta*dvxdt(t[i-1]+delta,x[i-1]+k3x,vx[i-1]+k3vx);
-		k4vy= delta*dvydt(t[i-1]+delta,y[i-1]+k3y,vy[i-1]+k3vy);
+		k4vx= delta*dvxdt(r12x[i-1],t[i-1]+delta,x[i-1]+k3x,vx[i-1]+k3vx);
+		k4vy= delta*dvydt(r12y[i-1],t[i-1]+delta,y[i-1]+k3y,vy[i-1]+k3vy);
 
 		promediox= (1.0/6.0)*(k1x+(2.0*k2x)+(2.0*k3x)+k4x);
 		promedioy= (1.0/6.0)*(k1y+(2.0*k2y)+(2.0*k3y)+k4y);
@@ -190,6 +211,8 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 
 		x[i]= x[i-1]+promediox;
 		y[i]= y[i-1]+promedioy;
+		r12x[i]=pow(((x[i]*x[i])+(y[i]*y[i])),0.5); 
+		r12y[i]=pow(((x[i]*x[i])+(y[i]*y[i])),0.5); 
 		vx[i]= vx[i-1]+promediovx;
 		vy[i]= vy[i-1]+promediovy;
 	}
