@@ -163,7 +163,7 @@ ruidosa=np.copy(suma)
 for i in range(m):
 	for j in range(n):
 
-		if(freqsuma[i][j]<(np.mean(suma))):
+		if(freqsuma[i][j]<0.8):
 			ruidosa[i][j]=0
 		else:
 			ruidosa[i][j]=ruidosa[i][j]
