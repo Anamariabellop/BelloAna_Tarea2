@@ -78,19 +78,43 @@ n=np.shape(freqfeliz)[1]
 maximo=np.max(freqfeliz)
 minimo=np.min(freqfeliz)
 promedio=np.mean(freqfeliz)
-#Maximo y minimo de imagen triste.
 
-# print(np.max(freqtriste))
-#print(np.min(freqtriste))
+#Filtro pasa bajos para feliz
+
+Transformadaf2=np.copy(Transformadaf)
+Transformadaf3=np.copy(Transformadat)
 
 for i in range(m):
 	for j in range(n):
 
 		if(freqfeliz[i][j]<promedio):
-			Transformadaf[i][j]=0
+			Transformadaf2[i][j]=0
 		else:
-			Transformadaf[i][j]=Transformadaf[i][j]
+			Transformadaf2[i][j]=Transformadaf2[i][j]
 
+
+
+plt.figure()
+plt.imshow(np.abs(Transformadaf2), norm= LogNorm())
+plt.savefig("prueba")
+
+#Maximo y minimo de imagen triste.
+
+maximot=np.max(freqtriste)
+minimot=np.min(freqtriste)
+promediot=np.mean(freqtriste)
+
+for i in range(m):
+	for j in range(n):
+
+		if(freqtriste[i][j]>promediot):
+			Transformadaf3[i][j]=0
+		else:
+			Transformadaf3[i][j]=Transformadaf3[i][j]
+
+plt.figure()
+plt.imshow(np.abs(Transformadaf3), norm= LogNorm())
+plt.savefig("prueba2")
 
 
 #Filtro gaussiano para realizar hibrido.
