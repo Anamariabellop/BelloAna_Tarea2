@@ -1,31 +1,19 @@
 #makefile
-#%.png: Fourier.py 
+#Imagenes.png prueba.png prueba2.png Tinv.png Transformadas.png Transformadas2.png hibrida.png hibridasinruido.png: Fourier.py euler.txt eulerdt2.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt
 	#python Fourier.py
-Posiciones.png: euler.txt eulerdt3.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt rungek4dt2.txt rungek4dt3.txt Plots_hw2.py ODEs.cpp
+#Energias.png Energiastotal.png Momentums.png Posiciones.png Velocidades.png: Plots_hw2.py euler.txt eulerdt2.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt rungek4dt2.txt rungek4dt3.txt
+	#python Plots_hw2.py
+#euler.txt eulerdt2.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt: a.out
+	#./a.out
+#a.out: ODEs.cpp
+	#g++ ODEs.cpp
+
+
+Imagenes.png prueba.png prueba2.png Tinv.png Transformadas.png Transformadas2.png hibrida.png hibridasinruido.png Energias.png Energiastotal.png Momentums.png Posiciones.png Velocidades.png: Fourier.py Plots_hw2.py euler.txt eulerdt2.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt
+	python Fourier.py
 	python Plots_hw2.py
-%.txt: a.out
+#euler.txt eulerdt2.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt: a.out
+%.txt:a.out
 	./a.out
 a.out: ODEs.cpp
 	g++ ODEs.cpp
-
-Velocidades.png: euler.txt eulerdt3.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt rungek4dt2.txt rungek4dt3.txt Plots_hw2.py ODEs.cpp
-	python Plots_hw2.py
-%.txt: a.out
-	./a.out
-a.out: ODEs.cpp
-	g++ ODEs.cpp
-
-Energias.png: euler.txt eulerdt3.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt rungek4dt2.txt rungek4dt3.txt Plots_hw2.py ODEs.cpp
-	python Plots_hw2.py
-%.txt: a.out
-	./a.out
-a.out: ODEs.cpp
-	g++ ODEs.cpp
-
-Energiastotal.png: euler.txt eulerdt3.txt eulerdt3.txt leapfrog.txt leapfrogdt2.txt leapfrogdt3.txt rungek4.txt rungek4dt2.txt rungek4dt3.txt Plots_hw2.py ODEs.cpp
-	python Plots_hw2.py
-%.txt: a.out
-	./a.out
-a.out: ODEs.cpp
-	g++ ODEs.cpp
-
