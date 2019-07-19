@@ -14,7 +14,8 @@ feliz= plt.imread("cara_03_grisesMF.png")
 triste= plt.imread("cara_02_grisesMF.png")
 
 #Haga filtros para realizar la imagen hibrida.
-#Haga graficas de las transformadas de fourier, de los filtros, etc. (Ilustren proceso de realización).
+#Haga graficas de las transformadas de fourier, de los filtros, etc. (Ilustren proceso de realizacion).
+#Haga una imagen hibrida tal que cuando se observe de cerca, se vea a la persona seria y cuando se observe de lejos se vea a la persona sonriendo.
 
 
 #Transformada Fourier 2D.
@@ -37,7 +38,6 @@ plt.subplot(2,1,1)
 plt.plot(freqfeliz,Transformadaf, color= 'c')
 plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
-plt.grid()
 plt.title("Transformada 2D Cara feliz")
 
 plt.subplot(2,1,2)
@@ -46,8 +46,7 @@ plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
 plt.title("Transformada 2D Cara Triste")
 plt.subplots_adjust(hspace=0.5)
-plt.grid()
-plt.savefig("Transformadas.png")
+plt.savefig("FFt.pdf")
 
 plt.figure(figsize=(10,8))
 plt.subplot(1,2,1)
@@ -55,7 +54,6 @@ plt.imshow(np.abs(Transformadaf), norm= LogNorm())
 plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
 plt.colorbar()
-plt.grid()
 plt.title("Transformada 2D Cara feliz")
 
 plt.subplot(1,2,2)
@@ -65,11 +63,10 @@ plt.ylabel("Tfd")
 plt.colorbar()
 plt.title("Transformada 2D Cara Triste")
 plt.subplots_adjust(hspace=0.5)
-plt.grid()
-plt.savefig("Transformadas2.png")
+plt.savefig("FFtIm.pdf")
 
 
-plt.figure(figsize=(10,8))
+"""plt.figure(figsize=(10,8))
 plt.subplot(1,2,1)
 plt.imshow(feliz, plt.cm.gray)
 plt.title("Cara feliz")
@@ -78,7 +75,7 @@ plt.subplot(1,2,2)
 plt.imshow(triste,plt.cm.gray)
 plt.title("Cara Seria")
 plt.subplots_adjust(hspace=0.5)
-plt.savefig("Imagenes.png")
+plt.savefig("Imagenes.png")"""
 
 #Filtros de imagen.
 
@@ -106,9 +103,9 @@ for i in range(m):
 
 
 
-plt.figure()
-plt.imshow(np.abs(Transformadaf2), norm= LogNorm())
-plt.savefig("prueba")
+#plt.figure()
+#plt.imshow(np.abs(Transformadaf2), norm= LogNorm())
+#plt.savefig("prueba")
 
 #Maximo y minimo de imagen triste.
 
@@ -124,9 +121,9 @@ for i in range(m):
 		else:
 			Transformadaf3[i][j]=Transformadaf3[i][j]
 
-plt.figure()
-plt.imshow(np.abs(Transformadaf3), norm= LogNorm())
-plt.savefig("prueba2")
+#plt.figure()
+#plt.imshow(np.abs(Transformadaf3), norm= LogNorm())
+#plt.savefig("prueba2")
 
 #Calculamos inversa para obtener la imagen.
 
@@ -136,27 +133,40 @@ inversatriste=np.fft.irfft2(Transformadaf3)
 
 
 plt.figure(figsize=(10,10))
-plt.subplot(2,1,1)
+plt.subplot(2,2,1)
 plt.imshow(np.abs(inversafeliz),plt.cm.gray)
 plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
 plt.title("Inversa Transformada 2D Cara feliz")
 
-plt.subplot(2,1,2)
+plt.subplot(2,2,2)
 plt.imshow(np.abs(inversatriste),plt.cm.gray)
 plt.xlabel("freq(Hz)")
 plt.ylabel("Tfd")
-
 plt.title("Inversa Transformada 2D Cara Triste")
+
+plt.subplot(2,2,3)
+plt.imshow(np.abs(Transformadaf2), norm= LogNorm())
+plt.xlabel("freq(Hz)")
+plt.ylabel("Tfd")
+plt.title("Feliz Filtrada")
+
+plt.subplot(2,2,4)
+plt.imshow(np.abs(Transformadaf3), norm= LogNorm())
+plt.xlabel("freq(Hz)")
+plt.ylabel("Tfd")
+plt.title("Triste Filtrada")
+
+
 plt.subplots_adjust(hspace=0.5)
-plt.savefig("Tinv.png")
+plt.savefig("ImProceso.pdf")
 
 plt.figure(figsize=(10,8))
 plt.imshow(np.abs(inversatriste+inversafeliz),plt.cm.gray)
 plt.colorbar()
-plt.savefig("hibrida.png")
+plt.savefig("ImHybrid.pdf")
 
-suma=np.abs(inversatriste+inversafeliz)
+"""suma=np.abs(inversatriste+inversafeliz)
 freqsuma=np.fft.fftshift(suma)
 ruidosa=np.copy(suma)
 
@@ -171,17 +181,6 @@ for i in range(m):
 plt.figure(figsize=(10,8))
 plt.imshow(ruidosa,plt.cm.gray)
 plt.colorbar()
-plt.savefig("hibridasinruido.png")
-
-#Filtro gaussiano para realizar hibrido.
-
-#f(x)= ae^-((x-b)^2/2c^2) Modelo.
-
-#gauss= np.exp(-(x**2)/(sigma**2))
-
-#kernel= cv2.getGaussianKernel(np.shape(feliz)[0],sigma=1)
+plt.savefig("hibridasinruido.png")"""
 
 
-
-
-#Haga una imagen hibrida tal que cuando se observe de cerca, se vea a la persona seria y cuando se observe de lejos se vea a la persona sonriendo.
