@@ -106,7 +106,7 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 	epotencial[0]= -G*(mtierra*M)/(r12x[0]);
 
 	double esistema[npuntos];
-	esistema[0]=ecinetica[0]-epotencial[0];
+	esistema[0]=ecinetica[0]+epotencial[0];
 
 	double dt= (b-a)/(npuntos-1); //dt para el linspace.
 
@@ -126,7 +126,7 @@ void euler(double a, double b,double xinicial, double yinicial,double vxini, dou
 		momentum[i]=(r12x[i]*M*vy[i])-(r12y[i]*M*vx[i]);
 		ecinetica[i]=0.5*((mtierra*pow(vx[i],2))+(mtierra*pow(vy[i],2)));
 		epotencial[i]= -G*(mtierra*M)/(r12x[i]);
-		esistema[i]= ecinetica[i]-epotencial[i];
+		esistema[i]= ecinetica[i]+epotencial[i];
 
 		}
 
@@ -179,7 +179,7 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 	epotencial[0]= -G*(mtierra*M)/(r12x[0]);
 
 	double esistema[npuntos];
-	esistema[0]=ecinetica[0]-epotencial[0];
+	esistema[0]=ecinetica[0]+epotencial[0];
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
@@ -197,7 +197,7 @@ void leapfrog(double a, double b,double xinicial, double yinicial,double vxini, 
 		momentum[i]=(r12x[i]*M*vy[i])-(r12y[i]*M*vx[i]);
 		ecinetica[i]=0.5*((mtierra*pow(vx[i],2))+(mtierra*pow(vy[i],2)));
 		epotencial[i]= -G*(mtierra*M)/(r12x[i]);
-		esistema[i]= ecinetica[i]-epotencial[i]; 
+		esistema[i]= ecinetica[i]+epotencial[i]; 
 
 		}
 
@@ -255,7 +255,7 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 	epotencial[0]= -G*(mtierra*M)/(r12x[0]);
 
 	double esistema[npuntos];
-	esistema[0]=ecinetica[0]-epotencial[0];
+	esistema[0]=ecinetica[0]+epotencial[0];
 
 	for(int i=1; i<npuntos; i++){ //Linspace para el tiempo.
 		t[i]= t[i-1]+dt;
@@ -300,7 +300,7 @@ void rungek4(double a, double b,double xinicial, double yinicial,double vxini, d
 
 		ecinetica[i]=0.5*((mtierra*pow(vx[i],2))+(mtierra*pow(vy[i],2)));
 		epotencial[i]= -G*(mtierra*M)/(r12x[i]);
-		esistema[i]= ecinetica[i]-epotencial[i];
+		esistema[i]= ecinetica[i]+epotencial[i];
 	}
 
 	for(int i=0; i<npuntos; i++){
