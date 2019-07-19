@@ -56,16 +56,19 @@ Julio - 2019\\
 \includegraphics[width=16.cm]{XY_met_dt.pdf}
 \textbf{Figura 5:}{  X vs Y de diferentes m\'etodos y dts.}
 \end{center}
+{Al observar la gr\'afica podemos concluir que el mejor m\'etodo para la simulaci\'on de las orbitas de la tierra es Runge Kutta de 4 orden, para los diferentes dts simul\'o de manera m\'as precisa ya que conservo el radio. Por otro lado, Euler y LeapF fueron menos precisos ya que las orbitas no son congruentes, en euler aumentan y en leap frog no arroja una simulaci\'on cercana. Sin embargo, ambos m\'etodos mejoraron cuando el dt cambiaba, los tres m\'etodos se pueden considerar eficientes en dt m\'as pequeño.}
 
 \begin{center}
 \includegraphics[width=16.cm]{VxVy_met_dt.pdf}
 \textbf{Figura 6:}{  VX vs VY de diferentes m\'etodos y dts.}
 \end{center}
+{En este caso, las velocidades se conforman igual que las posiciones pero en las velocidades se observan mas la figura de las orbitas, en el dt mas pequeño los m\'etodos simulan iguales pero difieren en el radio y espacio. En leapfrog y euler, las velocidades varian m\'as entre orbitas, mientras en RungeKutta varia muy poco.}
 
 \begin{center}
 \includegraphics[width=16.cm]{Mome_met_dt.pdf}
 \textbf{Figura 7:}{  Momentum de diferentes m\'etodos y dts.}
 \end{center}
+{Los momentums de manera general se comportan de forma oscilatoria, variando su amplitud de acuerdo a su dt, a menor dts se observa mayor amplitud. El comportamiento de RungeKuta es mucho m\'as uniforme, en este m\'etodo se observa m\'as estabilidad.}
 
 \begin{center}
 \includegraphics[width=16.cm]{Ener_met_dt.pdf}
@@ -76,5 +79,6 @@ Julio - 2019\\
 \includegraphics[width=16.cm]{Enertotal_met_dt.pdf}
 \textbf{Figura 9:}{  Energ\'ias total del sistema comparaci\'on de m\'etodos y dts.}
 \end{center}
+{En estas gr\'aficas de energ\'ias se puede comparar la energ\'ia potencial y cinetica de los m\'etodos, se puede observar que en el cambio de los dts se identifican mas cambios de energia total del sistema, en el segundo dt se observan mas cambios que los dos dts. En el ultimo dt LF muestra cambios significativos mientras Euler y RK se ve mas estable comparando con la escala de leapfrog. Los cambios de RungeK en los tres dts no parecen ser significativos, esto puede que confirme la estabilidad del m\'etodo.}
 
 \end{document}
